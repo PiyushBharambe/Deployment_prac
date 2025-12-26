@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
 import pickle
-# from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse
 from fastapi.middleware.cors import CORSMiddleware
 
 model = pickle.load(open("model.pkl", "rb"))
@@ -25,7 +25,8 @@ class StudentData(BaseModel):
 
 @app.get("/")
 def homepage():
-    return {"message": "Welcome to Student Result Predictor"}
+    return FileResponse("index.html")
+
 
 
 
