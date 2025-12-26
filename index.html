@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Student Result Predictor</title>
+    <style>
+      body {
+        font-family: Arial;
+        margin: 40px;
+      }
+      input,
+      button {
+        margin: 5px;
+        padding: 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Student Performance Prediction</h2>
+
+    <input id="hours" placeholder="Study Hours" type="number" /><br />
+    <input id="attendance" placeholder="Attendance %" type="number" /><br />
+    <input id="score" placeholder="Previous Score" type="number" /><br />
+
+    <button onclick="predict()">Predict</button>
+
+    <h3 id="result"></h3>
+
+    <script>
+      function predict() {
+        fetch("http://127.0.0.1:8000/predict", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            study_hours: document.getElementById("hours").value,
+            attendance: document.getElementById("attendance").value,
+            score: document.getElementById("score").value,
+          }),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            document.getElementById("result").innerText =
+              "Prediction: " + data.prediction;
+          });
+      }
+    </script>
+  </body>
+</html>

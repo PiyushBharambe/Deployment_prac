@@ -1,0 +1,8 @@
+myenv/
+
+dataset.csv
+
+debug.py
+
+__pycache__/
+*.pyc
